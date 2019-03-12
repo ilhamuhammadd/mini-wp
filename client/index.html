@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>Collapsible sidebar using Bootstrap 4</title>
+    <title>Mini-Wp Wordpress</title>
 
     <!-- Bootstrap CSS CDN -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
@@ -71,7 +71,7 @@
     <div class="wrapper">
 
         <!-- Sidebar -->
-        <nav id="sidebar">
+        <nav id="sidebar">   
 
             <div id="dismiss">
                 <i class="fas fa-arrow-left"></i>
@@ -126,47 +126,111 @@
         </nav>
 
         <!-- Page Content -->
-        <section class="about" id="about">
+        <section class="about" id="app">
             <div class="container">
                 <div class="row">
-                    <div class="col-sm-12 text-center">
-                        <h2>Content</h2>
-                        <hr>
+                    <div class="col-lg-6">
+                        <div class="form-control">
+                            <label for="title">Title</label>
+                            <input v-model="title" type="text" name="title" id="title" class="formtitle" autocomplete="off" required="true">
+                        </div>
+                        <textarea v-model="content" name="content" id="content" cols="30" rows="10" style="resize: none" required="true"></textarea>
+                        <input v-model="created_at" type="date" name="created_at" id="created_at" required="true"> <br>
+                        <button type="submit" class="btn btn-primary" v-on:click="addNewArticle" >Add Article</button>
+                    </div>
+                    <div class="col-lg-6">
+                       <div class="kotak" >
+                           <div class="kotak2">
+                               <p v-for="list in articles "><b>{{list.title }}</b> {{list.created_at}} <br> {{list.content}} <br> <br></p>
+                           </div>
+                       </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-sm-4 offset-sm-2">
-                        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Hic iste veniam natus ut optio
-                            debitis
-                            voluptatem tempore, dignissimos ullam nostrum inventore et, perferendis quam assumenda quasi
-                            facere commodi cupiditate consectetur.</p>
-                    </div>
-                    <div class="col-sm-4">
-                        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Et accusamus atque aliquid
-                            laudantium
-                            repudiandae iste tempora fugiat dignissimos omnis vero. Id expedita quidem facilis
-                            necessitatibus esse repellendus deleniti natus ut!</p>
-                    </div>
-                </div>
-                <div class="row ">
-                    <div class="col-sm-3">
-                        <button type="button" class="btn btn-primary">Update</button>
-                    </div>
-                    <div class="col-sm-3">
-                        <button type="button" class="btn btn-primary">Delete</button>
-                    </div>
-                    <div class="col-sm-3">
-                        <button type="button" class="btn btn-primary">Update</button>
-                    </div>
-                    <div class="col-sm-3">
-                        <button type="button" class="btn btn-primary">Delete</button>
-                    </div>
-                </div>
+                
             </div>
         </section>
     </div>
 
 
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+    const app = new Vue ({
+        el: "#app",
+        data: {
+            title: '',
+            content: '',
+            created_at: '',
+            articles: []
+        },
+        created() {
+            axios
+                .get('http://localhost:3000/mini-wp/article')
+                .then((response)=>{
+                    for (let i = 0; i < response.data.length; i++ ) {
+                        this.articles.push(response.data[i])
+                    }
+                })
+                .catch(err=>{
+                    console.log(err)
+                })
+               
+            
+        },
+        methods: {
+            addNewArticle() {
+                // console.log('masuk sini')
+                if (!this.title && !this.content && !this.created_at) {
+                    alert('Input bro')
+                } else {
+                    this.articles.push({
+                        id: this.articles.length + 1,
+                        title: this.title,
+                        content: this.content,
+                        created_at: this.created_at
+                    })
+                    
+                    axios
+                        .post('http://localhost:3000/mini-wp/article/create', {
+                            id: this.articles.length + 1,
+                            title: this.title,
+                            content: this.content,
+                            created_at: this.created_at
+                        })
+                        .then(data=>{
+                            
+                        })
+                        .catch(err=>{
+                            console.log(err)
+                        })
+                }
+            },
+            updateArticle(){
+                axios
+                    .put('http://localhost:3000/mini-wp/article/edit', {
+                        title: this.title,
+                        content: this.content,
+                        created_at: this.created_at
+                    })
+                    .then(data=>{
+
+                    })
+                    .catch(err=>{
+                        console.log(err)
+                    })
+            },
+            deleteArticle(){
+                axios.delete('http://localhost:3000/mini-wp/article/delete')
+                .then(data=>{
+
+                })
+                .catch(err=>{
+                    console.log(err)
+                })
+            }
+        }
+    })
+    </script>
 
 </body>
 

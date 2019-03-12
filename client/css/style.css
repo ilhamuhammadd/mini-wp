@@ -81,9 +81,9 @@ ul ul a {
 }
 
 
-a[data-toggle="collapse"] {
+/* a[data-toggle="collapse"] {
     position: relative;
-}
+} */
 
 .dropdown-toggle::after {
     display: block;
@@ -103,3 +103,34 @@ a[data-toggle="collapse"] {
     }
 }
 
+.form-control {
+    width: 400px;
+}
+
+.formname {
+    width: 100%;
+}
+
+.formemail {
+    width: 100%;
+}
+
+.kotak {
+    /* border: 1px solid black; */
+    /* color: #111; */
+    width: 450px;
+    height: 300px;
+    position: absolute;
+    right: -300px;
+    overflow-y: scroll;
+}
+
+.kotak p {
+    color: black;
+}
+
+/* .kotak2 {
+    border: 1px solid #dedede;
+    width: 90%;
+    height: 90%;
+} */

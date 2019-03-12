@@ -1,0 +1,60 @@
+{
+  "list": [
+    {
+      "id": 1,
+      "title": "Timnas Indonesia",
+      "content": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Est deserunt dicta incidunt! Assumenda asperiores in nulla tenetur repellat.",
+      "created_at": "2019-03-10"
+    },
+    {
+      "id": 2,
+      "title": "Pilpres 2019",
+      "content": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Est deserunt dicta incidunt! Assumenda asperiores in nulla tenetur repellat.",
+      "created_at": "2019-03-10"
+    },
+    {
+      "id": 3,
+      "title": "Banjir Kanal Timur",
+      "content": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Est deserunt dicta incidunt! Assumenda asperiores in nulla tenetur repellat.",
+      "created_at": "2019-03-10"
+    },
+    {
+      "id": 4,
+      "title": "TNI Dwifungsi",
+      "content": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Est deserunt dicta incidunt! Assumenda asperiores in nulla tenetur repellat.",
+      "created_at": "2019-03-10"
+    },
+    {
+      "title": "hardcore",
+      "content": "vue js masak gabisa",
+      "created_at": "2019-03-12T09:56:00.905Z",
+      "id": 5
+    },
+    {
+      "title": "hardcore",
+      "content": "vue js masak gabisa",
+      "created_at": "2019-03-12T09:56:01.830Z",
+      "id": 6
+    },
+    {
+      "id": 8,
+      "title": "Bisa kok",
+      "content": "Bisa Vue js"
+    },
+    {
+      "id": 9,
+      "title": "Masok Pak Eko",
+      "content": "Masuk Pak Eko "
+    },
+    {
+      "id": 10,
+      "title": "Vue Js",
+      "content": "Belajar Vue Js"
+    },
+    {
+      "id": 11,
+      "title": "Vue JS itu susah ",
+      "content": "Vue JS masa gabisa"
+    }
+  ]
+}

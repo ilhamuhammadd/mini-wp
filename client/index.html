@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-signin-client_id" content="197813133960-41on87jt0if3766phaj153o5657nt65r.apps.googleusercontent.com">
 
     <title>Mini-Wp Wordpress</title>
 
@@ -13,6 +14,7 @@
         integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
     <!-- Our Custom CSS -->
     <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/vueWysiwyg.css">
     <!-- Scrollbar Custom CSS -->
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
@@ -39,199 +41,127 @@
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js"
         integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY"
         crossorigin="anonymous"></script>
-    <script src="./js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+
+    <script src="./js/googlesignin.js"></script>
+
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">
-            <img src="https://blog.hacktiv8.com/content/images/2018/03/test.png" width="50" height="50"
-                class="d-inline-block align-top" alt="">
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">My Sites <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Reader</a>
-                </li>
-            </ul>
-        </div>
-        <form class="form-inline">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
-    </nav>
+        
+    <div id="app">
+        
 
-    <div class="wrapper">
-
-        <!-- Sidebar -->
-        <nav id="sidebar">   
-
-            <div id="dismiss">
-                <i class="fas fa-arrow-left"></i>
-            </div>
-
-            <div class="sidebar-header">
-                <h3>Mini Wordpress</h3>
-                <strong>MW</strong>
-            </div>
-
-            <ul class="list-unstyled components">
-                <li class="active">
-                    <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                        <!-- <i class="fas fa-home">Home</i></a> -->
-                        <a href="">Home</a>
-                        <ul class="collapse list-unstyled" id="homeSubmenu">
-                            <li>
-                                <a href="#">Home 1</a>
-                            </li>
-                            <li>
-                                <a href="#">Home 2</a>
-                            </li>
-                            <li>
-                                <a href="#">Home 3</a>
-                            </li>
-                        </ul>
-                </li>
-            </ul>
-            <li>
-                <a href="#">About</a>
-            </li>
-            <li>
-                <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Pages</a>
-                <ul class="collapse list-unstyled" id="pageSubmenu">
-                    <li>
-                        <a href="#">Page 1</a>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="#">
+                <img src="https://blog.hacktiv8.com/content/images/2018/03/test.png" width="50" height="50"
+                    class="d-inline-block align-top" alt="">
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">My Sites <span class="sr-only">(current)</span></a>
                     </li>
-                    <li>
-                        <a href="#">Page 2</a>
-                    </li>
-                    <li>
-                        <a href="#">Page 3</a>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Reader</a>
                     </li>
                 </ul>
-            </li>
-            <li>
-                <a href="#">Portfolio</a>
-            </li>
-            <li>
-                <a href="#">Contact</a>
-            </li>
+                <div class="g-signin2" data-onsuccess="onSignIn"></div>
+                <a href="#" onclick="signOut();">Sign out</a>
+            </div>
+            <form class="form-inline">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
         </nav>
 
-        <!-- Page Content -->
-        <section class="about" id="app">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-6">
-                        <div class="form-control">
-                            <label for="title">Title</label>
-                            <input v-model="title" type="text" name="title" id="title" class="formtitle" autocomplete="off" required="true">
-                        </div>
-                        <textarea v-model="content" name="content" id="content" cols="30" rows="10" style="resize: none" required="true"></textarea>
-                        <input v-model="created_at" type="date" name="created_at" id="created_at" required="true"> <br>
-                        <button type="submit" class="btn btn-primary" v-on:click="addNewArticle" >Add Article</button>
-                    </div>
-                    <div class="col-lg-6">
-                       <div class="kotak" >
-                           <div class="kotak2">
-                               <p v-for="list in articles "><b>{{list.title }}</b> {{list.created_at}} <br> {{list.content}} <br> <br></p>
-                           </div>
-                       </div>
-                    </div>
+        <div class="wrapper">
+
+            <!-- Sidebar -->
+            <nav id="sidebar">
+
+                <div id="dismiss">
+                    <i class="fas fa-arrow-left"></i>
                 </div>
-                
-            </div>
-        </section>
+
+                <div class="sidebar-header">
+                    <h3>Mini Wordpress</h3>
+                    <strong>MW</strong>
+                </div>
+
+                <ul class="list-unstyled components">
+                    <li class="active">
+                        <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                            <!-- <i class="fas fa-home">Home</i></a> -->
+                            <a href="">Home</a>
+                            <ul class="collapse list-unstyled" id="homeSubmenu">
+                                <li>
+                                    <a href="#">Home 1</a>
+                                </li>
+                                <li>
+                                    <a href="#">Home 2</a>
+                                </li>
+                                <li>
+                                    <a href="#">Home 3</a>
+                                </li>
+                            </ul>
+                    </li>
+                </ul>
+                <li>
+                    <a href="#">About</a>
+                </li>
+                <li>
+                    <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false"
+                        class="dropdown-toggle">Pages</a>
+                    <ul class="collapse list-unstyled" id="pageSubmenu">
+                        <li>
+                            <a href="#">Page 1</a>
+                        </li>
+                        <li>
+                            <a href="#">Page 2</a>
+                        </li>
+                        <li>
+                            <a href="#">Page 3</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">Portfolio</a>
+                </li>
+                <li>
+                    <a href="#">Contact</a>
+                </li>
+            </nav>
+
+            <!-- Page Content -->
+            <section class="about">
+                <register v-if='logged'></register>
+                <login @form-login="doinglogin" v-if="logged"></login>
+                <add-form-article></add-form-article>
+                <articlelist></articlelist>
+            </section>
+        </div>
     </div>
-
-
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <!-- Component Registration -->
+    <script src="./js/components/formregister.js"></script>
+    <script src="./js/components/formlogin.js"></script>
+    <script src="./js/vueWysiwyg.js"></script>
+    <script src="./js/components/add-form-article.js"></script>
+    <script src="./js/components/article-list.js"></script>
+    <script src="./js/main.js"></script>
+
+    <!-- <script src="./js/components/edit-form-article.js"></script> --> 
     <script>
-    const app = new Vue ({
-        el: "#app",
-        data: {
-            title: '',
-            content: '',
-            created_at: '',
-            articles: []
-        },
-        created() {
-            axios
-                .get('http://localhost:3000/mini-wp/article')
-                .then((response)=>{
-                    for (let i = 0; i < response.data.length; i++ ) {
-                        this.articles.push(response.data[i])
-                    }
-                })
-                .catch(err=>{
-                    console.log(err)
-                })
-               
-            
-        },
-        methods: {
-            addNewArticle() {
-                // console.log('masuk sini')
-                if (!this.title && !this.content && !this.created_at) {
-                    alert('Input bro')
-                } else {
-                    this.articles.push({
-                        id: this.articles.length + 1,
-                        title: this.title,
-                        content: this.content,
-                        created_at: this.created_at
-                    })
-                    
-                    axios
-                        .post('http://localhost:3000/mini-wp/article/create', {
-                            id: this.articles.length + 1,
-                            title: this.title,
-                            content: this.content,
-                            created_at: this.created_at
-                        })
-                        .then(data=>{
-                            
-                        })
-                        .catch(err=>{
-                            console.log(err)
-                        })
-                }
-            },
-            updateArticle(){
-                axios
-                    .put('http://localhost:3000/mini-wp/article/edit', {
-                        title: this.title,
-                        content: this.content,
-                        created_at: this.created_at
-                    })
-                    .then(data=>{
-
-                    })
-                    .catch(err=>{
-                        console.log(err)
-                    })
-            },
-            deleteArticle(){
-                axios.delete('http://localhost:3000/mini-wp/article/delete')
-                .then(data=>{
-
-                })
-                .catch(err=>{
-                    console.log(err)
-                })
-            }
-        }
-    })
+        
     </script>
-
 </body>
 
 </html>

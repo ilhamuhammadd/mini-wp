@@ -1,18 +1,31 @@
-$(document).ready(function () {
+const url = 'http://localhost:3000'
 
-    $("#sidebar").mCustomScrollbar({
-        theme: "minimal"
-    });
+let app = new Vue({
+    el: '#app',
+    data() {
+        return {
+            logged: true,
+            registered: true,
+            token: localStorage.getItem('token')
+        }
+    },
+    methods: {
+        home() {
+            if (this.token) {
+                this.logged = false
+                this.registered = false
+            }
+        },
+        hide() {
+            this.logged = true
+            this.registered = true
+        },
+        doinglogin(payload) {
+            this.token = payload
+        }
 
-    $('#sidebarCollapse').on('click', function () {
-        // Open or close navbar
-        $('#sidebar').toggleClass('active');
-        // Close dropdowns
-        $('.collapse.in').toggleClass('in');
-        // and also adjust aria-expanded attributess we use for for the open/cloded arrows
-        // in our CSS
-        $('a[aria-expanded=true').attr('aria-expanded', 'false')
-    });
-
-});
-
+    },
+    beforeMount() {
+        this.home()
+    }
+})

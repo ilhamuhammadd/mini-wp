@@ -6,7 +6,13 @@ const Schema = mongoose.Schema
 let articleSchema = new Schema({
     title: String,
     content: String,
-    created_at: Date
+    status: Boolean,
+    created_at: Date,
+    imageUrl: String,
+    author: {
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+    }
 })
 
 let Article = mongoose.model('articles', articleSchema)
